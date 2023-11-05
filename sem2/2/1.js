@@ -20,9 +20,9 @@
 */
 
 class Library {
-    #books = [];
+  #books = [];
   constructor(booksArr) {
-    if (Array.from(new Set(booksArr)).length !== booksArr.length) {
+    if (new Set(booksArr).size !== booksArr.length) {
       throw new Error("Есть дубликаты");
     }
     this.#books = booksArr;
@@ -32,9 +32,6 @@ class Library {
     return this.#books;
   }
 
-  /**
-   * @param {String} title
-   */
   addBook(title) {
     if (!this.#books.find((book) => book === title)) {
       this.#books.push(title);
@@ -46,21 +43,17 @@ class Library {
   removeBook(title) {
     if (!this.#books.find((book) => book === title)) {
       throw new Error("Книги нет в списке");
-    } else {
-      this.#books = this.#books.filter((book) => book !== title);
-    }
+    };
+
+    this.#books = this.#books.filter((book) => book !== title);
   }
 
   hasBook(title) {
-    if (!this.#books.find((book) => book === title)) {
-      return false;
-    } else {
-      return true;
-    }
+    return this.#books.find((book) => book === title)
   }
 };
 
-let books = ["Пушкин", "Лермонтов", "Иосиф"];
+const books = ["Пушкин", "Лермонтов", "Иосиф"];
 
 const Books = new Library(books);
 console.log(Books.allBooks);
